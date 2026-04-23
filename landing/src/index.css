@@ -34,7 +34,29 @@ body {
   color: #0a0b0e;
 }
 
-/* Grain overlay — subtle, adds atmosphere without noise */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Scrollbar styling — thin, dark, unobtrusive */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0b0e;
+}
+::-webkit-scrollbar-thumb {
+  background: #1a1c20;
+  border: 2px solid #0a0b0e;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2a2c32;
+}
+
+/* -------- Atmospheric layers -------- */
+
+/* Film-grain overlay — low opacity, fixed */
 .grain {
   position: fixed;
   inset: 0;
@@ -45,26 +67,28 @@ body {
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
 }
 
-/* Subtle scan-line grid in the hero background */
+/* Scanline grid behind the hero — masked radial */
 .grid-bg {
   background-image:
-    linear-gradient(to right, rgba(245, 241, 232, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(245, 241, 232, 0.03) 1px, transparent 1px);
+    linear-gradient(to right, rgba(245, 241, 232, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(245, 241, 232, 0.035) 1px, transparent 1px);
   background-size: 72px 72px;
   background-position: center center;
-  mask-image: radial-gradient(ellipse 80% 60% at 50% 35%, #000 10%, transparent 75%);
-  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 35%, #000 10%, transparent 75%);
+  mask-image: radial-gradient(ellipse 90% 70% at 50% 35%, #000 10%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 35%, #000 10%, transparent 80%);
 }
 
-/* Glow for accent-highlighted code tokens */
+/* Glow for accent-highlighted code tokens + hero accent word */
 .accent-glow {
-  text-shadow: 0 0 22px rgba(208, 245, 0, 0.35);
+  text-shadow: 0 0 22px rgba(208, 245, 0, 0.38);
 }
 
-/* Smooth progress bar for auto-rotate */
+/* -------- Animations -------- */
+
+/* Code switcher rotation progress bar (tab underline) */
 .rotate-bar {
   transform-origin: left;
-  animation: rotate-fill 4s linear infinite;
+  animation: rotate-fill 4.2s linear infinite;
 }
 .rotate-bar.paused {
   animation-play-state: paused;
@@ -78,19 +102,94 @@ body {
   }
 }
 
-/* Morph effect when code line swaps */
+/* Morph effect when a code line swaps */
 .morph-enter {
-  animation: morph-in 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: morph-in 460ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 @keyframes morph-in {
   0% {
     opacity: 0;
-    transform: translateY(4px);
+    transform: translateY(3px);
     filter: blur(6px);
   }
   100% {
     opacity: 1;
     transform: translateY(0);
     filter: blur(0);
+  }
+}
+
+/* Scan-line flash — fires once per swap, keyed off gateway */
+.scan-line {
+  animation: scan-pass 520ms cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+@keyframes scan-pass {
+  0% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(240px);
+  }
+}
+
+/* Pulsing dot for "live" indicator */
+.animate-pulse-dot {
+  animation: pulse-dot 1.6s ease-in-out infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(208, 245, 0, 0.55);
+  }
+  50% {
+    opacity: 0.7;
+    box-shadow: 0 0 0 6px rgba(208, 245, 0, 0);
+  }
+}
+
+/* Default tailwind config animations are still there too */
+.animate-fade-in {
+  animation: fade-in 800ms ease-out both;
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-slide-up {
+  animation: slide-up 600ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes slide-up {
+  from {
+    transform: translateY(22px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Motion-reduce respects user preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .rotate-bar {
+    animation: none !important;
   }
 }
