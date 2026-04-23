@@ -11,10 +11,19 @@ import type { StripeCheckoutSessionResponse } from './types';
 
 export interface StripeServerConfig {
   secretKey: string;
+  /**
+   * Stripe requires both URLs at session creation. Provide production values —
+   * default placeholders point at RFC 2606 `example.test` which will break
+   * real redirects.
+   */
+  successUrl?: string;
+  cancelUrl?: string;
   apiBase?: string;
 }
 
 const DEFAULT_API_BASE = 'https://api.stripe.com';
+const DEFAULT_SUCCESS_URL = 'https://example.test/success?session_id={CHECKOUT_SESSION_ID}';
+const DEFAULT_CANCEL_URL = 'https://example.test/cancel';
 
 const CAPABILITIES: Capabilities = {
   modal: false,
@@ -52,10 +61,8 @@ export function stripeServer(config: StripeServerConfig): ServerAdapter {
       params.set('line_items[0][quantity]', '1');
       if (req.customer?.email) params.set('customer_email', req.customer.email);
       if (req.receipt) params.set('client_reference_id', req.receipt);
-      // success_url / cancel_url are required by Stripe; we use placeholders that
-      // the merchant must override via the browser session param if desired.
-      params.set('success_url', 'https://example.test/success?session_id={CHECKOUT_SESSION_ID}');
-      params.set('cancel_url', 'https://example.test/cancel');
+      params.set('success_url', config.successUrl ?? DEFAULT_SUCCESS_URL);
+      params.set('cancel_url', config.cancelUrl ?? DEFAULT_CANCEL_URL);
 
       const res = await fetch(`${base}/v1/checkout/sessions`, {
         method: 'POST',
