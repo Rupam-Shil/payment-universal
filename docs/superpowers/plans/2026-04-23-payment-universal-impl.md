@@ -3630,7 +3630,7 @@ const FORM_FIELDS = [
   'hash',
 ];
 
-export function payuBrowser(_config: PayUBrowserConfig = {}): BrowserAdapter {
+export function payuBrowser(_config: PayUBrowserConfig = {} as PayUBrowserConfig): BrowserAdapter {
   const adapter: BrowserAdapter = {
     gateway: 'payu',
     capabilities: CAPABILITIES,
@@ -4148,7 +4148,7 @@ const CAPABILITIES: Capabilities = {
   refunds: false,
 };
 
-export function juspayBrowser(_config: JuspayBrowserConfig = {}): BrowserAdapter {
+export function juspayBrowser(_config: JuspayBrowserConfig = {} as JuspayBrowserConfig): BrowserAdapter {
   const adapter: BrowserAdapter = {
     gateway: 'juspay',
     capabilities: CAPABILITIES,
