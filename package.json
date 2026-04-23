@@ -1,6 +1,6 @@
 {
   "name": "payment-universal",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Framework-agnostic multi-gateway payment SDK — Razorpay, Cashfree, PayU, Juspay, Stripe — with React, Vue 3, Angular, and Vanilla adapters.",
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",
@@ -10,10 +10,7 @@
   "sideEffects": false,
   "files": [
     "dist",
-    "README.md",
-    "CHANGELOG.md",
-    "LICENSE",
-    "MANUAL_SMOKE_TEST.md"
+    "CHANGELOG.md"
   ],
   "exports": {
     ".": {
