@@ -1,0 +1,96 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+  background-color: #0a0b0e;
+}
+
+body {
+  font-family:
+    'JetBrains Mono',
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    monospace;
+  font-feature-settings:
+    'ss01' on,
+    'zero' on;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+::selection {
+  background-color: #d0f500;
+  color: #0a0b0e;
+}
+
+/* Grain overlay — subtle, adds atmosphere without noise */
+.grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 40;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+
+/* Subtle scan-line grid in the hero background */
+.grid-bg {
+  background-image:
+    linear-gradient(to right, rgba(245, 241, 232, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(245, 241, 232, 0.03) 1px, transparent 1px);
+  background-size: 72px 72px;
+  background-position: center center;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 35%, #000 10%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 35%, #000 10%, transparent 75%);
+}
+
+/* Glow for accent-highlighted code tokens */
+.accent-glow {
+  text-shadow: 0 0 22px rgba(208, 245, 0, 0.35);
+}
+
+/* Smooth progress bar for auto-rotate */
+.rotate-bar {
+  transform-origin: left;
+  animation: rotate-fill 4s linear infinite;
+}
+.rotate-bar.paused {
+  animation-play-state: paused;
+}
+@keyframes rotate-fill {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Morph effect when code line swaps */
+.morph-enter {
+  animation: morph-in 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes morph-in {
+  0% {
+    opacity: 0;
+    transform: translateY(4px);
+    filter: blur(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
