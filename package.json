@@ -113,8 +113,20 @@
     "sdk",
     "universal"
   ],
-  "author": "Rupam Shil <rupamshil111@gmail.com>",
+  "author": {
+    "name": "Rupam Shil",
+    "email": "rupamshil111@gmail.com",
+    "url": "https://github.com/Rupam-Shil"
+  },
   "license": "MIT",
+  "homepage": "https://payment-universal.vercel.app/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rupam-Shil/payment-universal.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Rupam-Shil/payment-universal/issues"
+  },
   "engines": {
     "node": ">=18"
   },
