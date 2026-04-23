@@ -1758,7 +1758,7 @@ export function razorpayBrowser(config: RazorpayBrowserConfig): BrowserAdapter {
       typeof window !== 'undefined' && typeof window.Razorpay === 'function',
   });
 
-  let lastInstance: ReturnType<NonNullable<Window['Razorpay']>> | null = null;
+  let lastInstance: InstanceType<NonNullable<Window['Razorpay']>> | null = null;
 
   const adapter: BrowserAdapter = {
     gateway: 'razorpay',
@@ -1857,7 +1857,7 @@ export function razorpayBrowser(config: RazorpayBrowserConfig): BrowserAdapter {
           },
         };
 
-        let instance: ReturnType<NonNullable<Window['Razorpay']>>;
+        let instance: InstanceType<NonNullable<Window['Razorpay']>>;
         try {
           instance = new (window.Razorpay as NonNullable<Window['Razorpay']>)(rzpOptions);
         } catch (err) {
