@@ -1,0 +1,160 @@
+{
+  "name": "payment-universal",
+  "version": "0.1.0",
+  "description": "Framework-agnostic multi-gateway payment SDK — Razorpay, Cashfree, PayU, Juspay, Stripe — with React, Vue 3, Angular, and Vanilla adapters.",
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "unpkg": "dist/index.umd.js",
+  "jsdelivr": "dist/index.umd.js",
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "MANUAL_SMOKE_TEST.md"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    },
+    "./react": {
+      "types": "./dist/adapters/react/index.d.ts",
+      "import": "./dist/adapters/react/index.mjs",
+      "require": "./dist/adapters/react/index.cjs"
+    },
+    "./vue": {
+      "types": "./dist/adapters/vue/index.d.ts",
+      "import": "./dist/adapters/vue/index.mjs",
+      "require": "./dist/adapters/vue/index.cjs"
+    },
+    "./angular": {
+      "types": "./dist/adapters/angular/index.d.ts",
+      "import": "./dist/adapters/angular/index.mjs",
+      "require": "./dist/adapters/angular/index.cjs"
+    },
+    "./vanilla": {
+      "types": "./dist/adapters/vanilla/index.d.ts",
+      "import": "./dist/adapters/vanilla/index.mjs",
+      "require": "./dist/adapters/vanilla/index.cjs"
+    },
+    "./razorpay/browser": {
+      "types": "./dist/gateways/razorpay/browser.d.ts",
+      "import": "./dist/gateways/razorpay/browser.mjs",
+      "require": "./dist/gateways/razorpay/browser.cjs"
+    },
+    "./razorpay/server": {
+      "types": "./dist/gateways/razorpay/server.d.ts",
+      "node": "./dist/gateways/razorpay/server.mjs",
+      "require": "./dist/gateways/razorpay/server.cjs"
+    },
+    "./cashfree/browser": {
+      "types": "./dist/gateways/cashfree/browser.d.ts",
+      "import": "./dist/gateways/cashfree/browser.mjs",
+      "require": "./dist/gateways/cashfree/browser.cjs"
+    },
+    "./cashfree/server": {
+      "types": "./dist/gateways/cashfree/server.d.ts",
+      "node": "./dist/gateways/cashfree/server.mjs",
+      "require": "./dist/gateways/cashfree/server.cjs"
+    },
+    "./payu/browser": {
+      "types": "./dist/gateways/payu/browser.d.ts",
+      "import": "./dist/gateways/payu/browser.mjs",
+      "require": "./dist/gateways/payu/browser.cjs"
+    },
+    "./payu/server": {
+      "types": "./dist/gateways/payu/server.d.ts",
+      "node": "./dist/gateways/payu/server.mjs",
+      "require": "./dist/gateways/payu/server.cjs"
+    },
+    "./juspay/browser": {
+      "types": "./dist/gateways/juspay/browser.d.ts",
+      "import": "./dist/gateways/juspay/browser.mjs",
+      "require": "./dist/gateways/juspay/browser.cjs"
+    },
+    "./juspay/server": {
+      "types": "./dist/gateways/juspay/server.d.ts",
+      "node": "./dist/gateways/juspay/server.mjs",
+      "require": "./dist/gateways/juspay/server.cjs"
+    },
+    "./stripe/browser": {
+      "types": "./dist/gateways/stripe/browser.d.ts",
+      "import": "./dist/gateways/stripe/browser.mjs",
+      "require": "./dist/gateways/stripe/browser.cjs"
+    },
+    "./stripe/server": {
+      "types": "./dist/gateways/stripe/server.d.ts",
+      "node": "./dist/gateways/stripe/server.mjs",
+      "require": "./dist/gateways/stripe/server.cjs"
+    }
+  },
+  "scripts": {
+    "build": "rollup -c rollup.config.mjs",
+    "clean": "rm -rf dist",
+    "prebuild": "npm run clean",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit -p tsconfig.test.json",
+    "prepublishOnly": "npm run typecheck && npm run test && npm run build"
+  },
+  "keywords": [
+    "payment",
+    "razorpay",
+    "cashfree",
+    "payu",
+    "juspay",
+    "stripe",
+    "checkout",
+    "react",
+    "vue",
+    "angular",
+    "typescript",
+    "sdk",
+    "universal"
+  ],
+  "author": "Rupam Shil <rupamshil111@gmail.com>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "peerDependencies": {
+    "@angular/core": ">=14",
+    "@cashfreepayments/cashfree-js": ">=2",
+    "@stripe/stripe-js": ">=2",
+    "react": ">=17",
+    "vue": ">=3"
+  },
+  "peerDependenciesMeta": {
+    "@angular/core": { "optional": true },
+    "@cashfreepayments/cashfree-js": { "optional": true },
+    "@stripe/stripe-js": { "optional": true },
+    "react": { "optional": true },
+    "vue": { "optional": true }
+  },
+  "devDependencies": {
+    "@angular/common": "^19.2.21",
+    "@angular/core": "^19.2.21",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/react": "^16.3.2",
+    "@types/node": "^20.11.19",
+    "@types/react": "^18.2.57",
+    "@vue/test-utils": "^2.4.4",
+    "jsdom": "^24.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rollup": "^4.12.0",
+    "rollup-plugin-dts": "^6.1.0",
+    "rxjs": "^7.8.1",
+    "tslib": "^2.6.2",
+    "typescript": "^5.3.3",
+    "vitest": "^3.2.4",
+    "vue": "^3.4.19",
+    "zone.js": "^0.14.4"
+  }
+}
